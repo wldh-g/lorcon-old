@@ -18,8 +18,8 @@ LIB = ${DESTDIR}${exec_prefix}/lib
 INCLUDE = ${DESTDIR}${prefix}/include
 
 CC = gcc
-LDFLAGS = 
-LIBS =  -lm 
+LDFLAGS =
+LIBS =  -lm
 CFLAGS = -I./   -DHAVE_CONFIG_H -g -O2 -DTX80211_VERSION=$(VERSION)
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(CFLAGS)
@@ -33,7 +33,7 @@ LIBOBJ = ifcontrol_linux.lo iwcontrol.lo madwifing_control.lo nl80211_control.lo
 		 rt2570inject.lo airpinject.lo rt73inject.lo \
 		 rt61inject.lo zd1211rwinject.lo mac80211inject.lo \
 		 bcm43xxinject.lo tx80211.lo \
-		 lorcon_decode.lo lorcon_packasm.lo lorcon_forge.lo 
+		 lorcon_decode.lo lorcon_packasm.lo lorcon_forge.lo
 LIBOUT = liborcon.la
 
 TXTESTOBJ = tx.o
@@ -45,7 +45,7 @@ TXTUNOUT  = tuntx
 L2PINGOBJ = l2ping80211.o
 L2PINGOUT = l2ping80211
 
-all:	$(DEPEND) $(LIBOUT) 
+all:	$(DEPEND) $(LIBOUT)
 
 $(LIBOUT):	$(LIBOBJ)
 	$(LIBTOOL) --mode=link $(CC) $(LDFLAGS) $(LIBS) -o $(LIBOUT) $(LIBOBJ) \
@@ -108,11 +108,9 @@ $(DEPEND):
 include $(DEPEND)
 
 .c.o:	$(DEPEND)
-	$(CC) $(CFLAGS) -c $*.c -o $@ 
+	$(CC) $(CFLAGS) -c $*.c -o $@
 
 .c.lo:	$(DEPEND)
 	$(LTCOMPILE) -c $*.c -o $@
 
 .SUFFIXES: .c .o .lo
-
-
