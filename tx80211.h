@@ -39,8 +39,8 @@ unsigned int tx80211_getversion();
 
 /* Master tx80211 interface structure */
 struct tx80211 {
-	/* 
-	 * Internal functions and structs 
+	/*
+	 * Internal functions and structs
 	 *
 	 * These should not be called directly.
 	 */
@@ -173,7 +173,7 @@ struct tx80211_radiotap_header {
 }
 #ifdef _MSC_VER
 #pragma pack(pop)
-#else		
+#else
 __attribute__((__packed__))
 #endif
 ;
@@ -223,8 +223,8 @@ __attribute__((__packed__))
 #define TX80211_CAP_SETRATE	16384	/* Capability to set TX data rate */
 #define TX80211_CAP_SETMODULATION	32768	/* Capability to set modulation type */
 
-/* 
- * tx802.11 functions for creating and operating on the tx80211 struct 
+/*
+ * tx802.11 functions for creating and operating on the tx80211 struct
  * core API of library
  */
 
@@ -351,9 +351,9 @@ __attribute__((__packed__))
  * These are to be used to flip bits when building packet structs.
  */
 #ifdef _MSC_VER
-static tx80211_endian16(struct tx80211 *x, uint16_t y)
+static uint16_t tx80211_endian16(tx80211_t *x, uint16_t y)
 #else
-static inline tx80211_endian16(struct tx80211 *x, uint16_t y)
+static inline uint16_t tx80211_endian16(tx80211_t *x, uint16_t y)
 #endif
 {
 	switch (x->injectortype) {
@@ -367,9 +367,9 @@ static inline tx80211_endian16(struct tx80211 *x, uint16_t y)
 	return y;
 }
 #ifdef _MSC_VER
-static tx80211_endian32(struct tx80211 *x, uint32_t y)
+static uint32_t tx80211_endian32(tx80211_t *x, uint32_t y)
 #else
-static inline tx80211_endian32(struct tx80211 *x, uint32_t y)
+static inline uint32_t tx80211_endian32(tx80211_t *x, uint32_t y)
 #endif
 {
 	switch (x->injectortype) {
@@ -384,9 +384,9 @@ static inline tx80211_endian32(struct tx80211 *x, uint32_t y)
 }
 
 #ifdef _MSC_VER
-static tx80211_endian64(struct tx80211 *x, uint64_t y)
+static uint64_t tx80211_endian64(tx80211_t *x, uint64_t y)
 #else
-static inline tx80211_endian64(struct tx80211 *x, uint64_t y)
+static inline uint64_t tx80211_endian64(tx80211_t *x, uint64_t y)
 #endif
 {
 	switch (x->injectortype) {
@@ -400,7 +400,7 @@ static inline tx80211_endian64(struct tx80211 *x, uint64_t y)
 	return y;
 }
 
-/* Populate and destroy lists of available tx types 
+/* Populate and destroy lists of available tx types
  * Caller of freecardlist must be aware that in_list is destroyed! */
 struct tx80211_cardlist *tx80211_getcardlist();
 void tx80211_freecardlist(struct tx80211_cardlist *in_list);
@@ -457,16 +457,16 @@ int tx80211_txpacket(struct tx80211 *in_tx, struct tx80211_packet *in_packet);
 /* Selfack */
 int tx80211_selfack(struct tx80211 *in_tx, uint8_t *address);
 
-/* Set a local DLT on the tx80211 interface (for the decode functions).  
- * This does NOT set the DLT of the interface, just sets what lorcon 
+/* Set a local DLT on the tx80211 interface (for the decode functions).
+ * This does NOT set the DLT of the interface, just sets what lorcon
  * thinks the DLT is */
 void tx80211_setlocaldlt(struct tx80211 *in_tx, int in_dlt);
 
 /* Get the DLT of the tx80211 interface */
 int tx80211_getdlt(struct tx80211 *in_tx);
 
-/* Decode a packet, filling in the bitmap.  Original packet is NOT 
- * copied and must be retained until end of processing.  DLT must 
+/* Decode a packet, filling in the bitmap.  Original packet is NOT
+ * copied and must be retained until end of processing.  DLT must
  * be set for the tx80211 structure */
 int tx80211_decodepkt(int in_dlt, struct tx80211_decode *decoded,
 					  const uint8_t *in_packet, int in_length);
